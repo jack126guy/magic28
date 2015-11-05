@@ -19,6 +19,10 @@ The permalink feature of the original Emojic 8 Ball is not yet supported in Magi
 
 The images are derived from [File:Magic eight ball.png](http://commons.wikimedia.org/wiki/File:Magic_eight_ball.png) on Wikimedia Commons, created by MZMcBride and released into the public domain.
 
+## License
+
+Magic28 is available under the MIT License. Refer to `LICENSE.txt` for details.
+
 ## Name
 
 The "magic" and "8" parts should be obvious. The "2" part is from the first part of "Twemoji", which is similar to "two" (I guess?).
