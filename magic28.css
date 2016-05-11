@@ -7,15 +7,14 @@
 	margin-right: auto;
 	position: relative;
 }
-#magic28 noscript {
-	display: block;
+#magic28 noscript .notice {
 	text-align: center;
 	margin-bottom: 1em;
 	background-color: #ffcccc;
 	font-size: 150%;
 	padding: 0.5em;
 }
-#magic28 form * {
+#magic28 form div * {
 	display: inline-block;
 	font-size: 150%;
 }
