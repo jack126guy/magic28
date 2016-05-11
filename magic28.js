@@ -22,8 +22,8 @@ $(function() {
 			.queue(function() {
 				$('#magic28 .ball-die-answer').html(twemoji.parse(magic28.makeAnswer(),
 					{
-						attributes: function(icon, variant) {
-							return { 'title': magic28.emoji.names[icon] };
+						attributes: function(rawText, iconId) {
+							return { 'title': magic28.emoji.names[rawText] };
 						}
 					}
 				));
