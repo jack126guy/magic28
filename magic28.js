@@ -12,22 +12,22 @@ $(function() {
 			//Shake ball
 			.queue(function() {
 				var queueObj = $(this);
-				magic28.shake($('#magic28 .ball'),
-					function() {
-						queueObj.dequeue();
-					}
-				);
+				var dequeueCallback = function() {
+					queueObj.dequeue();
+				}
+				magic28.shake($('#magic28 .ball'), dequeueCallback);
 			})
 			//Set answer
 			.queue(function() {
-				$('#magic28 .ball-die-answer').html(twemoji.parse(magic28.makeAnswer(),
-					{
-						folder: '2/72x72',
-						attributes: function(rawText, iconId) {
-							return { 'title': magic28.emoji.names[rawText] };
-						}
+				var answer = magic28.makeAnswer();
+				var options = {
+					folder: '2/72x72',
+					attributes: function(rawText, iconId) {
+						return { 'title': magic28.emoji.names[rawText] };
 					}
-				));
+				};
+				var parsedAnswer = twemoji.parse(answer, options);
+				$('#magic28 .ball-die-answer').html(parsedAnswer);
 				$(this).dequeue();
 			})
 			//Fade in die
