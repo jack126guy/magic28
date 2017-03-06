@@ -4,41 +4,10 @@ $(function() {
 	//Sequence of events upon asking
 	$('#magic28 .ask').click(function(event) {
 		$('body')
-			//Hide die
-			.queue(function() {
-				$('#magic28 .ball-die').fadeOut(0);
-				$(this).dequeue();
-			})
-			//Shake ball
-			.queue(function() {
-				var queueObj = $(this);
-				var dequeueCallback = function() {
-					queueObj.dequeue();
-				}
-				magic28.shake($('#magic28 .ball'), dequeueCallback);
-			})
-			//Set answer
-			.queue(function() {
-				var answer = magic28.makeAnswer();
-				var options = {
-					folder: '2/72x72',
-					attributes: function(rawText, iconId) {
-						return { 'title': magic28.emoji.names[rawText] };
-					}
-				};
-				var parsedAnswer = twemoji.parse(answer, options);
-				$('#magic28 .ball-die-answer').html(parsedAnswer);
-				$(this).dequeue();
-			})
-			//Fade in die
-			.queue(function() {
-				var queueObj = $(this);
-				$('#magic28 .ball-die').fadeIn(
-					function() {
-						queueObj.dequeue();
-					}
-				);
-			})
+			.queue(magic28.hideDie)
+			.queue(magic28.shakeBall)
+			.queue(magic28.setAnswer)
+			.queue(magic28.fadeInDie)
 		;
 		event.preventDefault();
 	});
@@ -63,6 +32,17 @@ var magic28 = {
 		return min + Math.floor(Math.random() * (max - min + 1));
 	},
 
+	//Hide the die
+	hideDie: function(next) {
+		$('#magic28 .ball-die').fadeOut(0);
+		next();
+	},
+
+	//Shake the ball
+	shakeBall: function(next) {
+		magic28.shake($('#magic28 .ball'), next);
+	},
+
 	//Shake the DOM element a random number of times,
 	//then call the callback
 	shake: function(element, callback) {
@@ -85,10 +65,24 @@ var magic28 = {
 			left: '-=' + totalX + 'px',
 			top: '-=' + totalY + 'px'
 		}, this.timePerShake, 'linear');
-		$(element).queue(function() {
+		$(element).queue(function(next) {
 			callback();
-			$(this).dequeue();
+			next();
 		});
+	},
+
+	//Set the answer on the die
+	setAnswer: function(next) {
+		var answer = magic28.makeAnswer();
+		var options = {
+			folder: '2/72x72',
+			attributes: function(rawText, iconId) {
+				return { 'title': magic28.emoji.names[rawText] };
+			}
+		};
+		var parsedAnswer = twemoji.parse(answer, options);
+		$('#magic28 .ball-die-answer').html(parsedAnswer);
+		next();
 	},
 
 	//Get a random emoji as a raw string
@@ -104,6 +98,11 @@ var magic28 = {
 			str += this.getEmoji();
 		}
 		return str;
+	},
+
+	//Fade in the die
+	fadeInDie: function(next) {
+		$('#magic28 .ball-die').fadeIn(next);
 	}
 };
 
