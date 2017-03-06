@@ -1,6 +1,6 @@
 $(function() {
 	//Die should not be visible initially
-	$('#magic28 .ball-die').fadeOut(0);
+	magic28.hideDie(function(){});
 	//Sequence of events upon asking
 	$('#magic28 .ask').click(function(event) {
 		$('body')
