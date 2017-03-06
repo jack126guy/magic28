@@ -44,8 +44,8 @@ var magic28 = {
 	},
 
 	//Shake the DOM element a random number of times,
-	//then call the callback
-	shake: function(element, callback) {
+	//then call the "complete" callback
+	shake: function(element, complete) {
 		var shakes = this.randomInt(this.minShakes, this.maxShakes);
 		var x, y;
 		var totalX = 0, totalY = 0;
@@ -66,7 +66,7 @@ var magic28 = {
 			top: '-=' + totalY + 'px'
 		}, this.timePerShake, 'linear');
 		$(element).queue(function(next) {
-			callback();
+			complete();
 			next();
 		});
 	},
