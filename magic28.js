@@ -1,115 +1,96 @@
 $(function() {
-	//Die should not be visible initially
-	magic28.hideDie(function(){});
-	//Sequence of events upon asking
-	$('#magic28 .ask').click(function(event) {
-		$('body')
-			.queue(magic28.hideDie)
-			.queue(magic28.shakeBall)
-			.queue(magic28.setAnswer)
-			.queue(magic28.fadeInDie)
-		;
-		event.preventDefault();
-	});
-});
-
-//Main variables and functions
-var magic28 = {
 	//Minimum number of shakes
-	minShakes: 5,
+	var minShakes = 5;
 
 	//Maximum number of shakes
-	maxShakes: 10,
+	var maxShakes = 10;
 
 	//Time for each shake (milliseconds)
-	timePerShake: 100,
+	var timePerShake = 100;
 
 	//Maximum offset for each shake in x and y (pixels)
-	shakeRange: 10,
+	var shakeRange = 10;
 
 	//Get a random integer between the two numbers (inclusive)
-	randomInt: function(min, max) {
+	function randomInt(min, max) {
 		return min + Math.floor(Math.random() * (max - min + 1));
-	},
+	}
 
 	//Hide the die
-	hideDie: function(next) {
+	function hideDie(next) {
 		$('#magic28 .ball-die').fadeOut(0);
 		next();
-	},
+	}
 
 	//Shake the ball
-	shakeBall: function(next) {
-		magic28.shake($('#magic28 .ball'), next);
-	},
+	function shakeBall(next) {
+		shake($('#magic28 .ball'), next);
+	}
 
 	//Shake the DOM element a random number of times,
 	//then call the "complete" callback
-	shake: function(element, complete) {
-		var shakes = this.randomInt(this.minShakes, this.maxShakes);
+	function shake(element, complete) {
+		var shakes = randomInt(minShakes, maxShakes);
 		var x, y;
 		var totalX = 0, totalY = 0;
 		//Shake
 		for(var i = 0; i < shakes; i++) {
-			x = this.randomInt(-this.shakeRange, this.shakeRange);
-			y = this.randomInt(-this.shakeRange, this.shakeRange);
+			x = randomInt(shakeRange, shakeRange);
+			y = randomInt(-shakeRange, shakeRange);
 			totalX += x;
 			totalY += y;
 			$(element).animate({
 				left: '+=' + x +'px',
 				top: '+=' + y + 'px'
-			}, this.timePerShake, 'linear');
+			}, timePerShake, 'linear');
 		}
 		//Return to original position
 		$(element).animate({
 			left: '-=' + totalX + 'px',
 			top: '-=' + totalY + 'px'
-		}, this.timePerShake, 'linear');
+		}, timePerShake, 'linear');
 		$(element).queue(function(next) {
 			complete();
 			next();
 		});
-	},
+	}
 
 	//Set the answer on the die
-	setAnswer: function(next) {
-		var answer = magic28.makeAnswer();
+	function setAnswer(next) {
+		var answer = makeAnswer();
 		var options = {
 			folder: '2/72x72',
 			attributes: function(rawText, iconId) {
-				return { 'title': magic28.emoji.names[rawText] };
+				return { 'title': emojiNames[rawText] };
 			}
 		};
 		var parsedAnswer = twemoji.parse(answer, options);
 		$('#magic28 .ball-die-answer').html(parsedAnswer);
 		next();
-	},
+	}
 
 	//Get a random emoji as a raw string
-	getEmoji: function() {
-		return this.emoji.list[magic28.randomInt(0, magic28.emoji.list.length - 1)];
-	},
+	function getEmoji() {
+		return emojiList[randomInt(0, emojiList.length - 1)];
+	}
 
 	//Make an emoji answer (raw characters)
-	makeAnswer: function() {
-		var count = this.randomInt(1, 3);
+	function makeAnswer() {
+		var count = randomInt(1, 3);
 		var str = '';
 		for(var i = 0; i < count; i++) {
-			str += this.getEmoji();
+			str += getEmoji();
 		}
 		return str;
-	},
+	}
 
 	//Fade in the die
-	fadeInDie: function(next) {
+	function fadeInDie(next) {
 		$('#magic28 .ball-die').fadeIn(next);
 	}
-};
 
-//Emoji lists
-magic28.emoji = {
 	//Emoji character strings
-	list: [
+	var emojiList = [
 		'\uD83D\uDE45', '\uD83D\uDE46', '\uD83D\uDE47', '\uD83D\uDE4B',
 		'\uD83D\uDE4C', '\uD83D\uDE4D', '\uD83D\uDE4E', '\uD83D\uDE4F',
 		'\u2702', '\u2708', '\u2709', '\u270A',
@@ -237,10 +218,10 @@ magic28.emoji = {
 		'\uD83D\uDC13', '\uD83D\uDC15', '\uD83D\uDC16', '\uD83D\uDC2A',
 		'\uD83D\uDC6C', '\uD83D\uDC6D', '\uD83D\uDCEC', '\uD83D\uDCED',
 		'\uD83D\uDCEF', '\uD83D\uDD2C', '\uD83D\uDD2D'
-	],
+	];
 
 	//Emoji names
-	names: {
+	var emojiNames = {
 		'\uD83D\uDE45': 'Face with no good gesture',
 		'\uD83D\uDE46': 'Face with OK gesture',
 		'\uD83D\uDE47': 'Person bowing deeply',
@@ -748,5 +729,18 @@ magic28.emoji = {
 		'\uD83D\uDCEF': 'Postal horn',
 		'\uD83D\uDD2C': 'Microscope',
 		'\uD83D\uDD2D': 'Telescope'
-	}
-};
+	};
+
+	//Die should not be visible initially
+	hideDie(function(){});
+	//Sequence of events upon asking
+	$('#magic28 .ask').click(function(event) {
+		$('body')
+			.queue(hideDie)
+			.queue(shakeBall)
+			.queue(setAnswer)
+			.queue(fadeInDie)
+		;
+		event.preventDefault();
+	});
+});
