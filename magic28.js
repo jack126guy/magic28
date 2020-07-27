@@ -59,7 +59,6 @@ $(function() {
 	function setAnswer(next) {
 		var answer = makeAnswer();
 		var options = {
-			folder: '2/72x72',
 			attributes: function(rawText, iconId) {
 				return { 'title': emojiNames[rawText] };
 			}
