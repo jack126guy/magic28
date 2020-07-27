@@ -35,7 +35,7 @@ $(function() {
 		var totalX = 0, totalY = 0;
 		//Shake
 		for(var i = 0; i < shakes; i++) {
-			x = randomInt(shakeRange, shakeRange);
+			x = randomInt(-shakeRange, shakeRange);
 			y = randomInt(-shakeRange, shakeRange);
 			totalX += x;
 			totalY += y;
