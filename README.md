@@ -2,7 +2,7 @@
 
 [Live demo](https://jack126guy.github.io/magic28/)
 
-Magic28 ("magic two eight") is a re-creation of [xkcd's Emojic 8 Ball](https://xkcd.com/1525/) using [Twitter Emoji](https://github.com/twitter/twemoji) instead of raw text.
+Magic28 ("magic two eight") is a re-creation of [xkcd's Emojic 8 Ball](https://xkcd.com/1525/) using [Twemoji](https://twemoji.twitter.com/) (Twitter Emoji) instead of raw text.
 
 Not all systems have fonts with emoji installed, and Twitter's emoji library fixes this by providing images.
 
@@ -11,7 +11,7 @@ In addition, in Magic28 you can put your cursor over the emoji to get a descript
 ## Requirements
 
 * jQuery
-* Twitter Emoji (Twemoji)
+* Twemoji
 
 ## Notes
 
