@@ -27,9 +27,8 @@ $(function() {
 		shake($('#magic28 .ball'), next);
 	}
 
-	//Shake the DOM element a random number of times,
-	//then call the "complete" callback
-	function shake(element, complete) {
+	//Shake the DOM element a random number of times
+	function shake(element, next) {
 		var shakes = randomInt(minShakes, maxShakes);
 		var x, y;
 		var totalX = 0, totalY = 0;
@@ -48,11 +47,7 @@ $(function() {
 		$(element).animate({
 			left: '-=' + totalX + 'px',
 			top: '-=' + totalY + 'px'
-		}, timePerShake, 'linear');
-		$(element).queue(function(next) {
-			complete();
-			next();
-		});
+		}, timePerShake, 'linear', next);
 	}
 
 	//Set the answer on the die
