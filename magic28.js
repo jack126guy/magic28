@@ -18,7 +18,7 @@ $(function() {
 
 	//Hide the die
 	function hideDie(next) {
-		$('#magic28 .ball-die').fadeOut(0);
+		$('#magic28 .ball-die').fadeOut();
 		next();
 	}
 
@@ -731,7 +731,7 @@ $(function() {
 	};
 
 	//Die should not be visible initially
-	hideDie(function(){});
+	$('#magic28 .ball-die').fadeOut(0);
 	//Sequence of events upon asking
 	$('#magic28 .ask').click(function(event) {
 		$('body')
