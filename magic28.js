@@ -52,16 +52,11 @@
 		}, timePerShake, 'linear', next);
 	}
 
-	//Set the answer on the die
-	function setAnswer(next) {
+	//Set answer state on die and in URL
+	function setAnswerState(next) {
 		var answer = makeAnswer();
-		var options = {
-			attributes: function(rawText, iconId) {
-				return { 'title': emojiNames[rawText] };
-			}
-		};
-		var parsedAnswer = twemoji.parse(answer, options);
-		$('#magic28 .ball-die-answer').html(parsedAnswer);
+		setAnswerOnDie(answer);
+		setPermalink($('#magic28 .question').val(), answer);
 		next();
 	}
 
@@ -78,6 +73,23 @@
 			str += getEmoji();
 		}
 		return str;
+	}
+
+	//Set the answer on the die
+	function setAnswerOnDie(answer) {
+		var options = {
+			attributes: function(rawText, iconId) {
+				return { 'title': emojiNames[rawText] };
+			}
+		};
+		var parsedAnswer = twemoji.parse(answer, options);
+		$('#magic28 .ball-die-answer').html(parsedAnswer);
+	}
+
+	//Set the permalink
+	function setPermalink(question, answer) {
+		//TODO: Encode answer using HTML entities and set URL fragment
+		var obj = { q: question, a: answer };
 	}
 
 	//Fade in the die
@@ -735,7 +747,7 @@
 			$('body')
 				.queue(hideDie)
 				.queue(shakeBall)
-				.queue(setAnswer)
+				.queue(setAnswerState)
 				.queue(fadeInDie)
 			;
 			event.preventDefault();
