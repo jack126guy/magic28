@@ -1,6 +1,6 @@
 # Magic28
 
-[Live demo](https://jack126guy.github.io/magic28/)
+[Live demo](https://www.halfgray.xyz/magic28/)
 
 Magic28 ("magic two eight") is a re-creation of [xkcd's Emojic 8 Ball](https://xkcd.com/1525/) using [Twemoji](https://twemoji.twitter.com/) (Twitter Emoji) instead of raw text.
 
