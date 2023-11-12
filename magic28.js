@@ -1,4 +1,6 @@
-$(function() {
+'use strict';
+
+(function($, twemoji) {
 	//Minimum number of shakes
 	var minShakes = 5;
 
@@ -725,16 +727,18 @@ $(function() {
 		'\uD83D\uDD2D': 'Telescope'
 	};
 
-	//Die should not be visible initially
-	$('#magic28 .ball-die').fadeOut(0);
-	//Sequence of events upon asking
-	$('#magic28 .ask').click(function(event) {
-		$('body')
-			.queue(hideDie)
-			.queue(shakeBall)
-			.queue(setAnswer)
-			.queue(fadeInDie)
-		;
-		event.preventDefault();
+	$(function() {
+		//Die should not be visible initially
+		$('#magic28 .ball-die').fadeOut(0);
+		//Sequence of events upon asking
+		$('#magic28 .ask').click(function(event) {
+			$('body')
+				.queue(hideDie)
+				.queue(shakeBall)
+				.queue(setAnswer)
+				.queue(fadeInDie)
+			;
+			event.preventDefault();
+		});
 	});
-});
+})(jQuery, twemoji);
