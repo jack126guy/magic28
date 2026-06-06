@@ -82,8 +82,8 @@
 				return { 'title': emojiNames[rawText] };
 			}
 		};
-		var parsedAnswer = twemoji.parse(answer, options);
-		$('#magic28 .ball-die-answer').html(parsedAnswer);
+		$('#magic28 .ball-die-answer').text(answer);
+		twemoji.parse($('#magic28 .ball-die-answer').get(0), options);
 	}
 
 	//Set the permalink
