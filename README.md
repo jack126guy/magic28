@@ -15,7 +15,7 @@ In addition, in Magic28 you can put your cursor over the emoji to get a descript
 
 ## Notes
 
-The permalink feature of the original Emojic 8 Ball is not yet supported in Magic28.
+The permalink feature works in the exact same way as the original Emojic 8 Ball. You can copy the final part of the link (following the `#`) from the original to get a version with Twemoji.
 
 The images are derived from [File:Magic eight ball.png](https://commons.wikimedia.org/wiki/File:Magic_eight_ball.png) on Wikimedia Commons, created by MZMcBride and released into the public domain.
 
