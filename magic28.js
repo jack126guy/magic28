@@ -55,7 +55,7 @@
 	//Set answer state on die and in URL
 	function setAnswerState(next) {
 		var answer = makeAnswer();
-		setAnswerOnDie(answer);
+		setAnswerOnDie(answer.join(''));
 		setPermalink($('#magic28 .question').val(), answer);
 		next();
 	}
@@ -65,14 +65,14 @@
 		return emojiList[randomInt(0, emojiList.length - 1)];
 	}
 
-	//Make an emoji answer (raw characters)
+	//Make an emoji answer (array of characters)
 	function makeAnswer() {
 		var count = randomInt(1, 3);
-		var str = '';
+		var answer = [];
 		for(var i = 0; i < count; i++) {
-			str += getEmoji();
+			answer.push(getEmoji());
 		}
-		return str;
+		return answer;
 	}
 
 	//Set the answer on the die
