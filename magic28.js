@@ -77,12 +77,17 @@
 
 	//Set the answer on the die
 	function setAnswerOnDie(answer) {
+		$('#magic28 .ball-die-answer').text(answer);
+		convertAnswerOnDie();
+	}
+
+	//Convert raw emoji on die to Twemoji images
+	function convertAnswerOnDie() {
 		var options = {
 			attributes: function(rawText, iconId) {
 				return { 'title': emojiNames[rawText] };
 			}
 		};
-		$('#magic28 .ball-die-answer').text(answer);
 		twemoji.parse($('#magic28 .ball-die-answer').get(0), options);
 	}
 
@@ -753,17 +758,24 @@
 	};
 
 	$(function() {
-		//Die should not be visible initially
-		$('#magic28 .ball-die').fadeOut(0);
-		//Sequence of events upon asking
-		$('#magic28 .ask').click(function(event) {
-			$('body')
-				.queue(hideDie)
-				.queue(shakeBall)
-				.queue(setAnswerState)
-				.queue(fadeInDie)
-			;
-			event.preventDefault();
-		});
+		if (location.hash && typeof atob === 'function') {
+			var permalinkData = JSON.parse(atob(location.hash.substring(1)));
+			$('#magic28 .question').val(permalinkData.q);
+			$('#magic28 .ball-die-answer').html(permalinkData.a.join(''));
+			convertAnswerOnDie();
+		} else {
+			//Die should not be visible initially
+			$('#magic28 .ball-die').fadeOut(0);
+			//Sequence of events upon asking
+			$('#magic28 .ask').click(function(event) {
+				$('body')
+					.queue(hideDie)
+					.queue(shakeBall)
+					.queue(setAnswerState)
+					.queue(fadeInDie)
+				;
+				event.preventDefault();
+			});
+		}
 	});
 })(jQuery, twemoji, location);
