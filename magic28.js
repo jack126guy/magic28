@@ -1,6 +1,6 @@
 'use strict';
 
-(function($, twemoji) {
+(function($, twemoji, location) {
 	//Minimum number of shakes
 	var minShakes = 5;
 
@@ -88,8 +88,21 @@
 
 	//Set the permalink
 	function setPermalink(question, answer) {
-		//TODO: Encode answer using HTML entities and set URL fragment
-		var obj = { q: question, a: answer };
+		if (typeof btoa === 'function') {
+			location.hash = btoa(JSON.stringify({ q: question, a: answer.map(toHtmlEntity) }));
+		}
+	}
+
+	//Transform a codepoint into a numeric HTML entity
+	function toHtmlEntity(c) {
+		var firstCharCode = c.charCodeAt(0);
+		var codepoint;
+		if (55296 <= firstCharCode && firstCharCode <= 56575) {
+			codepoint = (firstCharCode - 55296) * 1024 + (c.charCodeAt(1) - 56320) + 65536;
+		} else {
+			codepoint = firstCharCode;
+		}
+		return '&#x' + codepoint.toString(16).toUpperCase() + ';';
 	}
 
 	//Fade in the die
@@ -753,4 +766,4 @@
 			event.preventDefault();
 		});
 	});
-})(jQuery, twemoji);
+})(jQuery, twemoji, location);
