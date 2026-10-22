@@ -761,16 +761,17 @@
 		} else {
 			//Die should not be visible initially
 			$('#magic28 .ball-die').fadeOut(0);
-			//Sequence of events upon asking
-			$('#magic28 .ask').click(function(event) {
-				$('body')
-					.queue(hideDie)
-					.queue(shakeBall)
-					.queue(setAnswerState)
-					.queue(fadeInDie)
-				;
-				event.preventDefault();
-			});
 		}
+
+		//Sequence of events upon asking
+		$('#magic28 .ask').click(function(event) {
+			$('body')
+				.queue(hideDie)
+				.queue(shakeBall)
+				.queue(setAnswerState)
+				.queue(fadeInDie)
+			;
+			event.preventDefault();
+		});
 	});
 })(jQuery, twemoji, location);
