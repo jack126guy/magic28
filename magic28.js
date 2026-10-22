@@ -102,7 +102,7 @@
 	function toHtmlEntity(c) {
 		var firstCharCode = c.charCodeAt(0);
 		var codepoint;
-		if (55296 <= firstCharCode && firstCharCode <= 56575) {
+		if (55296 <= firstCharCode && firstCharCode <= 56319) {
 			codepoint = (firstCharCode - 55296) * 1024 + (c.charCodeAt(1) - 56320) + 65536;
 		} else {
 			codepoint = firstCharCode;
