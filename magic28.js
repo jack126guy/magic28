@@ -55,7 +55,8 @@
 	//Set answer state on die and in URL
 	function setAnswerState(next) {
 		var answer = makeAnswer();
-		setAnswerOnDie(answer.join(''));
+		$('#magic28 .ball-die-answer').text(answer);
+		convertAnswerOnDie();
 		setPermalink($('#magic28 .question').val(), answer);
 		next();
 	}
@@ -73,12 +74,6 @@
 			answer.push(getEmoji());
 		}
 		return answer;
-	}
-
-	//Set the answer on the die
-	function setAnswerOnDie(answer) {
-		$('#magic28 .ball-die-answer').text(answer);
-		convertAnswerOnDie();
 	}
 
 	//Convert raw emoji on die to Twemoji images
